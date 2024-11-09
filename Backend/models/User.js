@@ -10,10 +10,6 @@ const newuser=new Schema({
         require:true,
         unique:true
     },
-    address:{
-        type:String,
-        require:true
-    },
     password:{
         type:String,
         require:true

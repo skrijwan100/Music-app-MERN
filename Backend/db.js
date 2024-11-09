@@ -1,9 +1,9 @@
 const mongoose = require("mongoose")
 const mongoURI='mongodb://localhost:27017/musicappDB'
 
-connectserver=()=>{
+connectserver=async()=>{
     try{
-        mongoose.connect(mongoURI)
+        await mongoose.connect(mongoURI)
         console.log('mongo is running')
     }catch(error){
         console.log(error)
