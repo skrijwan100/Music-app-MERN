@@ -9,7 +9,7 @@ app.use(cookieParser());
 require('dotenv').config();
 app.get('/', (req, res) => {
   res.send({
-    "name":"rani"
+    "name":"rijwan"
   })
 })
 app.use("/nweuser/userauth",require("./routes/userauth"))

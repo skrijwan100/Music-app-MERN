@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const User = require("../models/User");
+const fecthuser=require("../middleware/fecthuser")
 const router = express.Router()
 const jwt_secret=process.env.JWT_SECRET_CODE
 
@@ -43,6 +44,47 @@ router.post("/register",[
     res.status(500).send("intarnal server error.")
 }
 
+})
+
+router.post("/login",[
+    body('email','Enter your email.').isEmail(),
+    body('password','Enter password').isLength({min:5})
+],async(req,res)=>{
+    try {
+        
+    
+    const {email,password}=req.body;
+    const error=validationResult(req)
+      if(!error.isEmpty()){
+        return res.status(400).json({error:error.array()});
+      }
+    const finduser= await User.findOne({email:email})
+    if(!finduser){
+        return res.status(404).json({"error":"Not fonud any account"})
+    }
+    const chakepass= await bcrypt.compare(password,finduser.password)
+    if(!chakepass){
+       return res.status(400).json({"error":"Enter right password"})
+    }
+    const jwttoken= jwt.sign({user:finduser.id},jwt_secret)
+    res.cookie("auth-token",jwttoken,{
+        httpOnly:true,
+        maxAge: 24 * 60 * 60 * 1000,  
+    })
+    return res.status(200).json({"message":"Login scuessfully"})
+} catch (error) {
+    console.log(error)
+    res.status(500).send("intarnal server error.")
+}
+
+})
+
+router.get("/getuser",fecthuser,async(req,res)=>{
+ const userid=req.user
+ console.log(userid)
+ const userdata= await User.findById(userid).select("-password")
+ console.log(userdata)
+ res.status(202).json({"message":userdata})
 })
 
 module.exports=router
