@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
   })
 })
 app.use("/nweuser/userauth",require("./routes/userauth"))
+app.use("/allsong/manupulatesong",require("./routes/songs"))
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
