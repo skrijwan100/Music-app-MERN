@@ -33,11 +33,11 @@ router.post("/register",[
         password:hashpass,
     })
     user.save()
-    const authtoken=jwt.sign({user:user.id},jwt_secret)
-    res.cookie("auth-token",authtoken,{
-        httpOnly:true,
-        maxAge: 24 * 60 * 60 * 1000,  
-    })
+    // const authtoken=jwt.sign({user:user.id},jwt_secret)
+    // res.cookie("auth-token",authtoken,{
+    //     httpOnly:true,
+    //     maxAge: 24 * 60 * 60 * 1000,  
+    // })
     return res.status(202).json({"message":"You register Successfully"})
 } catch (error) {
     console.log(error)
@@ -68,7 +68,7 @@ router.post("/login",[
     }
     const jwttoken= jwt.sign({user:finduser.id},jwt_secret)
     res.cookie("auth-token",jwttoken,{
-        httpOnly:true,
+        // httpOnly:true,
         maxAge: 24 * 60 * 60 * 1000,  
     })
     return res.status(200).json({"message":"Login scuessfully"})
