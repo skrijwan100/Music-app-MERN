@@ -86,6 +86,14 @@ router.get("/getuser",fecthuser,async(req,res)=>{
  console.log(userdata)
  res.status(202).json({"message":userdata})
 })
+router.post("/logout",(req,res)=>{
+    res.clearCookie("auth-token", {
+        httpOnly: true,
+        secure: true, // Use in production with HTTPS
+        sameSite: "Strict", // Prevent CSRF attacks
+      });
+      return res.status(200).json({ message: "Logged out successfully" });
+})
 
 
 module.exports=router

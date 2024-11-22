@@ -42,7 +42,7 @@ function App() {
       <Router>
         <Loader isLoading={isLoading} progress={progress} />
         <Alert alert={alert}/>
-        <Navbar startLoader={startLoader} />
+        <Navbar startLoader={startLoader}  showAlert={showAlert} />
         
         <Routes>
           <Route path='/' element={<Home />} />
