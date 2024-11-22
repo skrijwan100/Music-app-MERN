@@ -87,4 +87,5 @@ router.get("/getuser",fecthuser,async(req,res)=>{
  res.status(202).json({"message":userdata})
 })
 
+
 module.exports=router
