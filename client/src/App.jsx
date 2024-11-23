@@ -12,10 +12,18 @@ import Loader from '../component/Loder';
 import Singup from '../component/Singup';
 import Login from '../component/Login';
 import Alert from '../component/Alert';
+import Modal from '../component/Modal';
 function App() {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [modal, setmodal] = useState(null)
   const [alert, setalert] = useState(null)
+  const showmodal = (name, email) => {
+    setmodal({
+      name: name,
+      email: email,
+    })
+  }
   const startLoader = () => {
     setProgress(0);
     setIsLoading(true);
@@ -42,13 +50,14 @@ function App() {
       <Router>
         <Loader isLoading={isLoading} progress={progress} />
         <Alert alert={alert}/>
-        <Navbar startLoader={startLoader}  showAlert={showAlert} />
+        <Modal modal={modal}/>
+        <Navbar startLoader={startLoader}  showAlert={showAlert} showmodal={showmodal} />
         
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
-          <Route path='/singup' element={<Singup showAlert={showAlert}/>}/>
-          <Route path='/login' element={<Login showAlert={showAlert}/>}/>
+          <Route path='/singup' element={<Singup showAlert={showAlert} startLoader={startLoader}/>}/>
+          <Route path='/login' element={<Login showAlert={showAlert} startLoader={startLoader}/>}/>
 
         </Routes>
       </Router>

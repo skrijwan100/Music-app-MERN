@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
-export default function Navbar({ startLoader ,showAlert}) {
+export default function Navbar({ startLoader ,showAlert,showmodal}) {
   const loction = useLocation()
  const userclick=async(e)=>{
   e.preventDefault()
@@ -16,8 +16,11 @@ export default function Navbar({ startLoader ,showAlert}) {
     credentials:"include"
   })
   const data= await responce.json();
-  console.log(data)
-  
+  console.log(data.
+    message.email)
+  showmodal(data.
+    message.name,data.
+    message.email)
  }
  
   const isAuthenticated = Cookies.get('auth-token');
@@ -62,7 +65,7 @@ export default function Navbar({ startLoader ,showAlert}) {
       </ul>
      { !isAuthenticated?<div className="user-btn" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "20px" }}>
         <Link onClick={loction.pathname === "/login" ? null : handclick} to="/login"> <button style={{ height: "40px", width: "80px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Login</button></Link>
-        <Link onClick={loction.pathname === "/singup" ? null : handclick} to="/singup"> <button style={{ height: "40px", width: "80px", marginRight: "10px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Singup</button></Link></div>:<div><button onClick={userclick}>user</button> <button onClick={handlelogout}>Logout</button></div>}
+        <Link onClick={loction.pathname === "/singup" ? null : handclick} to="/singup"> <button style={{ height: "40px", width: "80px", marginRight: "10px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Singup</button></Link></div>:<div><button className='user-btn' onClick={userclick}>user</button> <button className='user-btn' onClick={handlelogout}>Logout</button></div>}
       
     </div>
   )

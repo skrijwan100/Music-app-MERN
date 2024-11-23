@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-export default function Login({showAlert}) {
+export default function Login({showAlert,startLoader}) {
     const naviget= useNavigate()
   const [credential,setcredential]=useState({useremail:"",userpassword:""})
   const onchange=(e)=>{
     setcredential({...credential,[e.target.name]:e.target.value})
+  }
+  const handleclick=(e)=>{
+    startLoader()
   }
   const submitform=async(e)=>{
     e.preventDefault()
@@ -43,7 +46,7 @@ export default function Login({showAlert}) {
             </div>
             <div>
               <button className="btn-singup">LOGIN</button>
-              <p>Have't any Account? <Link className="link" to="/singup">Singup Here!</Link></p></div></form></div></div>
+              <p>Have't any Account? <Link className="link" onClick={handleclick} to="/singup">Singup Here!</Link></p></div></form></div></div>
     </div>
   )
 }

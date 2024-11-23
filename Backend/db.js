@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
 // const mongoURI=process.env.mongoURI
-const mongoURI='mongodb://localhost:27017/musicappDB'
+// const mongoURI='mongodb://localhost:27017/musicappDB'
+const mongoURI='mongodb+srv://rijwansk329:SKRIJWAN%402006@clusterdb.7cmvf.mongodb.net/'
+// const mongoURI=process.env.mongoURI
 
 connectserver=async()=>{
     try{

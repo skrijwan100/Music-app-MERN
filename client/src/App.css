@@ -108,3 +108,20 @@
   color: #264143;
   padding: 5px;
 }
+
+.user-btn{
+  height: 40px;
+  width: 100px;
+  border-radius: 10px;
+  background-color: #DE5499;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  &:hover{
+    background-color: #dd2e86;
+  }
+  &:active{
+    background-color: #c86597;
+
+  }
+}

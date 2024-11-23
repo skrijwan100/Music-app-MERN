@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function Singup({showAlert}) {
+export default function Singup({showAlert,startLoader}) {
   const [credential, setcredential] = useState({ username: "", useremail: "", userpassword: "" })
   const naviget= useNavigate()
   const onchange = (e) => {
     setcredential({ ...credential, [e.target.name]: e.target.value })
 
+  }
+  const handleclick=(e)=>{
+
+    startLoader()
   }
   const submitform=async(e)=>{
     e.preventDefault()
@@ -55,7 +59,7 @@ export default function Singup({showAlert}) {
             </div>
             <div>
               <button className="btn-singup">SIGN UP</button>
-              <p>Have an Account? <Link className="link" to="/login">Login Here!</Link></p></div></form></div></div>
+              <p>Have an Account? <Link onClick={handleclick} className="link" to="/login">Login Here!</Link></p></div></form></div></div>
     </div>
   )
 }
