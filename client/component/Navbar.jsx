@@ -24,7 +24,7 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
  }
  
   const isAuthenticated = Cookies.get('auth-token');
-  console.log(isAuthenticated)
+  // console.log(isAuthenticated)
   const handlelogout= async()=>{
     const url = `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/logout`;
   try {

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import loderanime from "../src/assets/loder.gif"
 
 export default function Singup({showAlert,startLoader}) {
   const [credential, setcredential] = useState({ username: "", useremail: "", userpassword: "" })
+  const [loginbtn,setloginbtn]= useState(false)
   const naviget= useNavigate()
   const onchange = (e) => {
     setcredential({ ...credential, [e.target.name]: e.target.value })
@@ -14,6 +16,7 @@ export default function Singup({showAlert,startLoader}) {
   }
   const submitform=async(e)=>{
     e.preventDefault()
+    setloginbtn(true)
     const url= `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/register`
     const responce= await fetch(url,{
       method:"POST",
@@ -24,6 +27,7 @@ export default function Singup({showAlert,startLoader}) {
     })
     const data= await responce.json()
     if(data.error="The Email is aleady exites"){
+      setloginbtn(false)
        return showAlert("The Email is aleady exites","error")
 
     }
@@ -58,7 +62,7 @@ export default function Singup({showAlert,startLoader}) {
               <input placeholder="Renter  password" id="repassword" className="form_style" type="password" required />
             </div>
             <div>
-              <button className="btn-singup">SIGN UP</button>
+              <button className="btn-singup">{loginbtn?<img src={loderanime} alt="" style={{height:"53px"}} />:"SIGN UP"}</button>
               <p>Have an Account? <Link onClick={handleclick} className="link" to="/login">Login Here!</Link></p></div></form></div></div>
     </div>
   )

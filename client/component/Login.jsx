@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import loderanime from "../src/assets/loder.gif"
 export default function Login({showAlert,startLoader}) {
     const naviget= useNavigate()
   const [credential,setcredential]=useState({useremail:"",userpassword:""})
+  const [loginbtn,setloginbtn]= useState(false)
   const onchange=(e)=>{
     setcredential({...credential,[e.target.name]:e.target.value})
   }
@@ -11,6 +13,8 @@ export default function Login({showAlert,startLoader}) {
   }
   const submitform=async(e)=>{
     e.preventDefault()
+    setloginbtn(true)
+    
     const url=`${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/login`
     const responce = await fetch(url,{
         method:"POST",
@@ -23,9 +27,10 @@ export default function Login({showAlert,startLoader}) {
     const data = await responce.json()
     console.log(data.error)
     if(data.error){
+       setloginbtn(false)
        return showAlert("Invalid Credential","error")
     }
-
+    setloginbtn(false)
     showAlert("Successfully Login","success")
     naviget("/")
     
@@ -45,7 +50,7 @@ export default function Login({showAlert,startLoader}) {
               <input placeholder="Enter your password" id="password" className="form_style" onChange={onchange} value={setcredential.userpassword} type="password" name='userpassword' required />
             </div>
             <div>
-              <button className="btn-singup">LOGIN</button>
+              <button className="btn-singup">{loginbtn?<img src={loderanime} alt="" style={{height:"53px"}} />:"LOGIN"}</button>
               <p>Have't any Account? <Link className="link" onClick={handleclick} to="/singup">Singup Here!</Link></p></div></form></div></div>
     </div>
   )
