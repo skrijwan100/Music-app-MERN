@@ -69,6 +69,7 @@ router.post("/login",[
     const jwttoken= jwt.sign({user:finduser.id},jwt_secret)
     res.cookie("auth-token",jwttoken,{
         // httpOnly:true,
+        sameSite:"Lax",
         maxAge: 24 * 60 * 60 * 1000,  
     })
     return res.status(200).json({"message":"Login scuessfully"})
