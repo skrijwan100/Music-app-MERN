@@ -24,7 +24,7 @@ export default function Singup({showAlert,startLoader}) {
     })
     const data= await responce.json()
     if(data.error="The Email is aleady exites"){
-      showAlert("The Email is aleady exites","error")
+       return showAlert("The Email is aleady exites","error")
 
     }
     showAlert("Successfully register","success")
