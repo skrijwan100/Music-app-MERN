@@ -70,7 +70,7 @@ router.post("/login",[
     res.cookie("auth-token",jwttoken,{
         // httpOnly:true,
         sameSite: "None", // Allow cross-origin requests
-        secure: process.env.NODE_ENV === "production",
+        // secure: process.env.NODE_ENV === "production",
         maxAge: 24 * 60 * 60 * 1000,  
     })
     return res.status(200).json({"message":"Login scuessfully"})
