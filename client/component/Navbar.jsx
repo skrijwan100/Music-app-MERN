@@ -24,7 +24,7 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
  }
  
   const isAuthenticated = Cookies.get('auth-token');
-  // console.log(isAuthenticated)
+  console.log(isAuthenticated)
   const handlelogout= async()=>{
     const url = `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/logout`;
   try {
@@ -63,7 +63,8 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
         <Link to="/" style={{ textDecoration: "none" }} className={loction.pathname === "/" ? "navactive" : ""} onClick={loction.pathname === "/" ? null : handclick}><li className={`li-hover`}>Home</li></Link>
         <Link to="/about" style={{ textDecoration: "none" }} className={loction.pathname === "/about" ? "navactive" : ""} onClick={loction.pathname === "/about" ? null : handclick}><li className='li-hover' >About</li></Link>
       </ul>
-     { !isAuthenticated?<div className="user-btn" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "20px" }}>
+   
+     { !isAuthenticated?   <div className="user-btn-ls" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "20px" }}>
         <Link onClick={loction.pathname === "/login" ? null : handclick} to="/login"> <button style={{ height: "40px", width: "80px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Login</button></Link>
         <Link onClick={loction.pathname === "/singup" ? null : handclick} to="/singup"> <button style={{ height: "40px", width: "80px", marginRight: "10px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Singup</button></Link></div>:<div><button className='user-btn' onClick={userclick}>user</button> <button className='user-btn' onClick={handlelogout}>Logout</button></div>}
       

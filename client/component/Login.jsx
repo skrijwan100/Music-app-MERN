@@ -21,9 +21,9 @@ export default function Login({showAlert,startLoader}) {
         credentials:"include"
     })
     const data = await responce.json()
-    console.log(data)
+    console.log(data.error)
     if(data.error){
-        showAlert("Invalid Credential","error")
+       return showAlert("Invalid Credential","error")
     }
 
     showAlert("Successfully Login","success")
