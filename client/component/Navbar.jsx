@@ -61,6 +61,7 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
     <div style={{ display: "flex", boxShadow: "1px 1px 15px 5px #4f4f4f9c", justifyContent: "space-between" }}>
       <ul style={{ display: "flex", gap: "40px", listStyle: "none" }}>
         <Link to="/" style={{ textDecoration: "none" }} className={loction.pathname === "/" ? "navactive" : ""} onClick={loction.pathname === "/" ? null : handclick}><li className={`li-hover`}>Home</li></Link>
+        <Link to="/allfavsong" style={{ textDecoration: "none" }} className={loction.pathname === "/allfavsong" ? "navactive" : ""} onClick={loction.pathname === "/allfavsong" ? null : handclick}><li className='li-hover' >Favsong</li></Link>
         <Link to="/about" style={{ textDecoration: "none" }} className={loction.pathname === "/about" ? "navactive" : ""} onClick={loction.pathname === "/about" ? null : handclick}><li className='li-hover' >About</li></Link>
       </ul>
    

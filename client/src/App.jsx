@@ -13,6 +13,7 @@ import Singup from '../component/Singup';
 import Login from '../component/Login';
 import Alert from '../component/Alert';
 import Modal from '../component/Modal';
+import Allfavsong from '../component/Allfavsong';
 function App() {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,10 +55,11 @@ function App() {
         <Navbar startLoader={startLoader}  showAlert={showAlert} showmodal={showmodal} />
         
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home showAlert={showAlert}/>} />
           <Route path='/about' element={<About />} />
           <Route path='/singup' element={<Singup showAlert={showAlert} startLoader={startLoader}/>}/>
           <Route path='/login' element={<Login showAlert={showAlert} startLoader={startLoader}/>}/>
+          <Route path='/allfavsong' element={<Allfavsong showAlert={showAlert} startLoader={startLoader}/>}/>
 
         </Routes>
       </Router>

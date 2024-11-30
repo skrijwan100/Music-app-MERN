@@ -69,8 +69,8 @@ router.post("/login",[
     const jwttoken= jwt.sign({user:finduser.id},jwt_secret)
     res.cookie("auth-token",jwttoken,{
         // httpOnly:true,
-        sameSite: "None", // Allow cross-origin requests
-        // secure: true,
+        // sameSite: "None", // Allow cross-origin requests
+        secure: true,
         // maxAge: 24 * 60 * 60 * 1000,
         Credential:true  
     })
