@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { MdDelete } from "react-icons/md";
 export default function Allfavsong({showAlert}) {
     const naviget=useNavigate()
     const [favsong,setfavsong]=useState([])
+    const [deletebtn,setdeletebtn]=useState(false)
     const handledelte=async(e,id)=>{
       e.preventDefault();
       const url=`${import.meta.env.VITE_URL_BACKEND}/songtrack/favsong/deltefavsong/${id}`
@@ -52,7 +54,7 @@ export default function Allfavsong({showAlert}) {
             <div key={data._id}>
              <h1>Song name:{data.stitle}</h1>
              <h2>Artist Name:{data.artist}</h2>
-             <button onClick={(e)=>handledelte(e,data._id)}>delete favsong </button>
+             <button onClick={(e)=>handledelte(e,data._id)} style={{display:"flex",alignItems:"center",justifyContent:"center",marginLeft:"10px"}}> <MdDelete style={{height:"30px",width:"30px"}}/> </button>
             </div>
         ))}
       
