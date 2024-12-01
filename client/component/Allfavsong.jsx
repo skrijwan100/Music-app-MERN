@@ -4,8 +4,25 @@ import { useNavigate } from 'react-router-dom';
 export default function Allfavsong({showAlert}) {
     const naviget=useNavigate()
     const [favsong,setfavsong]=useState([])
+    const handledelte=async(e,id)=>{
+      e.preventDefault();
+      const url=`${import.meta.env.VITE_URL_BACKEND}/songtrack/favsong/deltefavsong/${id}`
+      const responce= await fetch(url,{
+        method:"DELETE",
+        headers:{
+           "Content-Type": "application/json"
+        },
+        credentials:"include"
+      })
+      const data= await responce.json()
+      showAlert("Delete song complect", "success")
+      naviget("/")
+      setTimeout(()=>{
+        naviget("/allfavsong")
+      },100)
+    }
     useEffect(()=>{
- 
+
      const allfavsong=async()=>{
         const isAuthenticated = Cookies.get('auth-token');
         if(!isAuthenticated){
@@ -35,6 +52,7 @@ export default function Allfavsong({showAlert}) {
             <div key={data._id}>
              <h1>Song name:{data.stitle}</h1>
              <h2>Artist Name:{data.artist}</h2>
+             <button onClick={(e)=>handledelte(e,data._id)}>delete favsong </button>
             </div>
         ))}
       
