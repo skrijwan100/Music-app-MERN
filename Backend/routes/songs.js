@@ -10,11 +10,12 @@ router.post("/addsong", fecthadmin, [
     body('coverImg', 'Enter cover img url').exists(),
     body('duration', "Enter duration of your song").exists(),
     body('fileUrl', 'Enter loction of the song').exists(),
+    body('isfavornot', 'Fav or not').exists(),
 ], async (req, res) => {
     try {
 
 
-        const { stitle, artist, coverImg, duration, fileUrl } = req.body;
+        const { stitle, artist, coverImg, duration, fileUrl,isfavornot } = req.body;
         const error = validationResult(req)
         if (!error.isEmpty()) {
             return res.status(400).json({ error: error.array() });
@@ -24,7 +25,9 @@ router.post("/addsong", fecthadmin, [
             artist: artist,
             coverImg: coverImg,
             duration: duration,
-            fileUrl: fileUrl
+            fileUrl: fileUrl,
+            isfavornot:isfavornot
+            
         })
         const song = await newsong.save();
         return res.status(200).json({ song })
@@ -47,18 +50,8 @@ router.get("/getallsong", async (req, res) => {
     }
 })
 
-router.put("/updatesong/:id", fecthadmin, [
-    body('stitle', "Enter song title").isLength({ min: 3 }),
-    body('artist', "Enter song artist name").isLength({ min: 4 }),
-    body('coverImg', 'Enter cover img url').exists(),
-    body('duration', "Enter duration of your song").exists(),
-    body('fileUrl', 'Enter loction of the song').exists()
-], async (req, res) => {
+router.put("/updatesong/:id", fecthadmin, async (req, res) => {
     try {
-        const error = validationResult(req)
-        if (!error.isEmpty()) {
-            return res.status(400).json({ error: error.array() });
-        }
         try {
             const findsong = await Songs.findById(req.params.id)
 
@@ -67,7 +60,7 @@ router.put("/updatesong/:id", fecthadmin, [
 
         }
         const updatesong = {}
-        const { stitle, artist, coverImg, duration, fileUrl } = req.body;
+        const { stitle, artist, coverImg, duration, fileUrl,isfavornot } = req.body;
         if (stitle) {
             updatesong.stitle = stitle;
         }
@@ -82,6 +75,9 @@ router.put("/updatesong/:id", fecthadmin, [
         }
         if (fileUrl) {
             updatesong.fileUrl = fileUrl
+        }
+        if (isfavornot) {
+            updatesong.isfavornot = isfavornot
         }
 
         const newupdatesong = await Songs.findByIdAndUpdate(req.params.id, { $set: updatesong }, { new: true })

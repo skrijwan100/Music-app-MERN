@@ -5,7 +5,6 @@ import { MdDelete } from "react-icons/md";
 export default function Allfavsong({showAlert}) {
     const naviget=useNavigate()
     const [favsong,setfavsong]=useState([])
-    const [deletebtn,setdeletebtn]=useState(false)
     const handledelte=async(e,id)=>{
       e.preventDefault();
       const url=`${import.meta.env.VITE_URL_BACKEND}/songtrack/favsong/deltefavsong/${id}`
@@ -17,6 +16,7 @@ export default function Allfavsong({showAlert}) {
         credentials:"include"
       })
       const data= await responce.json()
+      console.log(data)
       showAlert("Delete song complect", "success")
       naviget("/")
       setTimeout(()=>{
@@ -41,6 +41,7 @@ export default function Allfavsong({showAlert}) {
       })
       const data = await responce.json()
     //   console.log(data)
+    
       setfavsong(data.message)
     //   console.log(favsong)
      }

@@ -21,6 +21,10 @@ const song= new Schema({
     fileUrl:{
         type:String,
         require:true
+    },
+    isfavornot:{
+         type:Boolean,
+         require:true
     }
 })
 
