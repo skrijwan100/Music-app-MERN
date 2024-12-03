@@ -74,6 +74,7 @@ router.post("/login",[
         // maxAge: 24 * 60 * 60 * 1000,
         Credential:true  
     })
+    console.log(process.env.FRONTEND_ORIGIN)
     return res.status(200).json({"message":"Login scuessfully"})
 } catch (error) {
     console.log(error)
