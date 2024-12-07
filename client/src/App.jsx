@@ -19,6 +19,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [modal, setmodal] = useState(null)
   const [alert, setalert] = useState(null)
+
   const showmodal = (name, email) => {
     setmodal({
       name: name,

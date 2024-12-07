@@ -88,7 +88,7 @@ export default function Home({showAlert}) {
         <h1>Song title : {data.stitle}</h1>
         <h2>Artist name: {data.artist}</h2>
         {console.log(data.isfavornot)}
-        <button onClick={(e)=>handleclick(e,data._id)}><FcLikePlaceholder /></button>
+        <button onClick={(e)=>handleclick(e,data._id)}><FcLike /></button>
       </div>
      ))}
        

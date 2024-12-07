@@ -22,7 +22,21 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
     message.name,data.
     message.email)
  }
- 
+ const getgoogleuser=async()=>{
+    const url=`${import.meta.env.VITE_URL_BACKEND}/auth/login/sucesss`
+    const reponce= await fetch(url,{
+      method:"GET",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      credentials:"include"
+    })
+    const data= await reponce.json()
+    console.log(data)
+ }
+ useEffect(()=>{
+  getgoogleuser()
+ },[])
   const isAuthenticated = Cookies.get('auth-token');
   // console.log(isAuthenticated)
   const handlelogout= async()=>{

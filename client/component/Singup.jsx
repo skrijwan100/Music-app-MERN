@@ -6,6 +6,13 @@ export default function Singup({showAlert,startLoader}) {
   const [credential, setcredential] = useState({ username: "", useremail: "", userpassword: "" })
   const [loginbtn,setloginbtn]= useState(false)
   const naviget= useNavigate()
+  const googleauth=()=>{
+    window.open(
+      `${import.meta.env.VITE_URL_BACKEND}/auth/google/callback`,
+      "_self"
+    )
+
+  }
   const onchange = (e) => {
     setcredential({ ...credential, [e.target.name]: e.target.value })
 
@@ -63,6 +70,7 @@ export default function Singup({showAlert,startLoader}) {
             </div>
             <div>
               <button className="btn-singup">{loginbtn?<img src={loderanime} alt="" style={{height:"53px"}} />:"SIGN UP"}</button>
+              <h3 onClick={googleauth}>Login with google</h3>
               <p>Have an Account? <Link onClick={handleclick} className="link" to="/login">Login Here!</Link></p></div></form></div></div>
     </div>
   )

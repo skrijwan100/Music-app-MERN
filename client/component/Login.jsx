@@ -5,6 +5,13 @@ export default function Login({ showAlert, startLoader }) {
   const naviget = useNavigate()
   const [credential, setcredential] = useState({ useremail: "", userpassword: "" })
   const [loginbtn, setloginbtn] = useState(false)
+  const googleauth=()=>{
+    window.open(
+      `${import.meta.env.VITE_URL_BACKEND}/auth/google/callback`,
+      "_self"
+    )
+
+  }
   const onchange = (e) => {
     setcredential({ ...credential, [e.target.name]: e.target.value })
   }
@@ -52,6 +59,8 @@ export default function Login({ showAlert, startLoader }) {
             </div>
             <div>
               <button className="btn-singup">{loginbtn ? <img src={loderanime} alt="" style={{ height: "53px" }} /> : "LOGIN"}</button>
+            
+              <h3 onClick={googleauth} style={{cursor:"pointer"}}>Login with google</h3>
               <p>Have't any Account? <Link className="link" onClick={handleclick} to="/singup">Singup Here!</Link></p>
             </div>
           </form>
