@@ -20,16 +20,20 @@ router.get('/login/sucesss',(req,res)=>{
 })
 
 router.get("/google/callback", passport.authenticate('google', {
-    successRedirect: process.env.BACKEND_URL,
+    successRedirect: process.env.FRONTEND_ORIGIN,
     failureRedirect: "/login/faild",
 
 }))
 
 router.get("/google",passport.authenticate("google",['profile',"email"]))
 
-router.get("logout",(req,res)=>{
-    req.logOut();
-    res.redirect(process.env.FRONTEND_ORIGIN)
-})
+router.get("/logout", (req, res) => {
+    req.logOut((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Error logging out", error: err });
+      }
+      return res.status(200).json({ message: "Logout successful" });
+    });
+  });
 
 module.exports=router;

@@ -3,7 +3,7 @@ import Home from '../component/Home'
 import Navbar from '../component/Navbar'
 import './App.css'
 import {
-  BrowserRouter as Router,
+  BrowserRouter ,
   Routes,
   Route,
 } from "react-router-dom";
@@ -49,7 +49,7 @@ function App() {
   }
   return (
     <>
-      <Router>
+      <BrowserRouter future={{ v7_relativeSplatPath: true }}>
         <Loader isLoading={isLoading} progress={progress} />
         <Alert alert={alert}/>
         <Modal modal={modal}/>
@@ -63,7 +63,7 @@ function App() {
           <Route path='/allfavsong' element={<Allfavsong showAlert={showAlert} startLoader={startLoader}/>}/>
 
         </Routes>
-      </Router>
+      </BrowserRouter>
     </>
   )
 }

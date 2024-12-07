@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 export default function Navbar({ startLoader ,showAlert,showmodal}) {
   const loction = useLocation()
+  const [auth,setauth]= useState(false)
  const userclick=async(e)=>{
   e.preventDefault()
  const url= `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/getuser`
@@ -32,12 +33,17 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
       credentials:"include"
     })
     const data= await reponce.json()
+    console.log("hi i am sk rijwan")
     console.log(data)
+    setauth(true)
  }
  useEffect(()=>{
   getgoogleuser()
  },[])
   const isAuthenticated = Cookies.get('auth-token');
+  if(isAuthenticated){
+    setauth(true)
+  }
   // console.log(isAuthenticated)
   const handlelogout= async()=>{
     const url = `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/logout`;
@@ -79,7 +85,7 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
         <Link to="/about" style={{ textDecoration: "none" }} className={loction.pathname === "/about" ? "navactive" : ""} onClick={loction.pathname === "/about" ? null : handclick}><li className='li-hover' >About</li></Link>
       </ul>
    
-     { !isAuthenticated?   <div className="user-btn-ls" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "20px" }}>
+     { !auth?   <div className="user-btn-ls" style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "20px" }}>
         <Link onClick={loction.pathname === "/login" ? null : handclick} to="/login"> <button style={{ height: "40px", width: "80px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Login</button></Link>
         <Link onClick={loction.pathname === "/singup" ? null : handclick} to="/singup"> <button style={{ height: "40px", width: "80px", marginRight: "10px", backgroundColor: "blue", borderRadius: "11px", cursor: "pointer", color: "white", outline: "none", border: "none" }} className='login-singup-btn'>Singup</button></Link></div>:<div><button className='user-btn' onClick={userclick}>user</button> <button className='user-btn' onClick={handlelogout}>Logout</button></div>}
       

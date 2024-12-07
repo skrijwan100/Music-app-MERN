@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
 
 
@@ -31,7 +30,7 @@ export default function Home({showAlert}) {
      return naviget("/login")
     }
     const url= `${import.meta.env.VITE_URL_BACKEND}/songtrack/favsong/addfavsong/${id}`
-    // const url1=`${import.meta.env.VITE_URL_BACKEND}/allsong/manupulatesong/updatesong/${id}`
+    
     const responce= await fetch(url,{
       method:"POST",
       headers:{
@@ -41,57 +40,36 @@ export default function Home({showAlert}) {
     })
     const data = await responce.json()
     console.log(data.message)
-    // const responce1= await fetch(url1,{
-    //   method:"PUT",
-    //   headers:{
-    //     "Content-Type": "application/json",
-    //     "admin-token":"ubfyguybffuihfifguihugijfoigwufewffu"
-    //   },
-    //   body:JSON.stringify({isfavornot:true})
-    // })
-    // const data1= await responce1.json()
-    // console.log(data1)
     showAlert("Add as a favsong", "success")
-
-
   }
-  const handdlete=async(e,id)=>{
+  const handlelogout= async(e)=>{
     e.preventDefault();
-    const url=`${import.meta.env.VITE_URL_BACKEND}/songtrack/favsong/deltefavsong/${id}`
-    const url1=`${import.meta.env.VITE_URL_BACKEND}/allsong/manupulatesong/updatesong/${id}`
+    const url = `${import.meta.env.VITE_URL_BACKEND}/auth/logout`
     const responce= await fetch(url,{
-      method:"DELETE",
+      method:"GET",
       headers:{
-         "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      credentials:"include"
     })
     const data= await responce.json()
     console.log(data)
-    const responce1= await fetch(url1,{
-      method:"PUT",
-      headers:{
-        "Content-Type": "application/json",
-        "admin-token":"ubfyguybffuihfifguihugijfoigwufewffu"
-      },
-      body:JSON.stringify({isfavornot:false})
-    })
-    const data1= await responce1.json()
-    console.log(data1)
+    naviget("/")
 
-    
   }
+  
   return (
     <div style={{marginTop:"20px"}}>
      {song && song.map((data)=>(
       <div className="allsong" key={data._id}>
         <h1>Song title : {data.stitle}</h1>
         <h2>Artist name: {data.artist}</h2>
-        {console.log(data.isfavornot)}
         <button onClick={(e)=>handleclick(e,data._id)}><FcLike /></button>
       </div>
      ))}
-       
+     <div style={{marginTop:"20px"}}>
+
+       <button onClick={handlelogout}>LOGOUT</button>
+     </div>
     </div>
   )
 }
