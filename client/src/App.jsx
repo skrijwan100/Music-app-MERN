@@ -56,7 +56,7 @@ function App() {
         <Navbar startLoader={startLoader}  showAlert={showAlert} showmodal={showmodal} />
         
         <Routes>
-          <Route path='/' element={<Home showAlert={showAlert}/>} />
+          <Route path='/' element={<Home showAlert={showAlert} showmodal={showmodal}/>} />
           <Route path='/about' element={<About />} />
           <Route path='/singup' element={<Singup showAlert={showAlert} startLoader={startLoader}/>}/>
           <Route path='/login' element={<Login showAlert={showAlert} startLoader={startLoader}/>}/>

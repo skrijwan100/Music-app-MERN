@@ -10,7 +10,7 @@ export default function Login({ showAlert, startLoader }) {
       `${import.meta.env.VITE_URL_BACKEND}/auth/google/callback`,
       "_self"
     )
-
+    
   }
   const onchange = (e) => {
     setcredential({ ...credential, [e.target.name]: e.target.value })

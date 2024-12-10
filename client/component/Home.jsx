@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { FcLike } from "react-icons/fc";
 
 
-export default function Home({showAlert}) {
+export default function Home({showAlert,showmodal}) {
   const [song,setsong]=useState([])
+  const [pic,setpic]=useState([])
+  
   const naviget=useNavigate()
   useEffect(()=>{
     const fecthallsong= async()=>{
@@ -22,6 +24,26 @@ export default function Home({showAlert}) {
     }
  fecthallsong()
   },[0])
+  const userdetlis= async(e)=>{
+    e.preventDefault();
+    const url=`${import.meta.env.VITE_URL_BACKEND}/auth/login/sucesss`
+    const reponce= await fetch(url,{
+      method:"GET",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      credentials:"include"
+    })
+    const data= await reponce.json()
+    console.log(data.user) 
+    showmodal(
+      data.user.displayName,
+      data.user.emails[0].value
+
+    )
+    setpic(data.user.photos[0].value)
+
+  }
   const handleclick= async(e,id)=>{
     e.preventDefault();
     const isAuthenticated = Cookies.get('auth-token');
@@ -68,8 +90,14 @@ export default function Home({showAlert}) {
      ))}
      <div style={{marginTop:"20px"}}>
 
-       <button onClick={handlelogout}>LOGOUT</button>
+       <button style={{marginRight:"10px"}} onClick={handlelogout}>LOGOUT</button>
+       <button onClick={userdetlis}>USER OF GOOGLE LOGIN</button>
      </div>
+     <div style={{marginTop:"20px"}}>
+
+       <img  style={{borderRadius:"20px"}} src={pic} alt="" />
+     </div>
+
     </div>
   )
 }

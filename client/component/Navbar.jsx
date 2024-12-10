@@ -33,17 +33,20 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
       credentials:"include"
     })
     const data= await reponce.json()
-    console.log("hi i am sk rijwan")
     console.log(data)
-    setauth(true)
+    if(data.message!="Unauthorized"){
+
+      setauth(true)
+    }
  }
  useEffect(()=>{
   getgoogleuser()
- },[])
   const isAuthenticated = Cookies.get('auth-token');
   if(isAuthenticated){
     setauth(true)
   }
+},[showAlert])
+ 
   // console.log(isAuthenticated)
   const handlelogout= async()=>{
     const url = `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/logout`;
@@ -55,9 +58,10 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
 
     const data = await response.json();
     console.log(data.message);
-
+    
     if (response.ok) {
       showAlert("Successfully logged out", "success");
+      setauth(false)
       // navigate("/login");
     } else {
       showAlert("Logout failed", "error");
