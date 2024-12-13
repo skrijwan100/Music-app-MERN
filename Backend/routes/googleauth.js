@@ -28,12 +28,15 @@ router.get("/google/callback", passport.authenticate('google', {
 router.get("/google",passport.authenticate("google",['profile',"email"]))
 
 router.get("/logout", (req, res) => {
-    req.logOut((err) => {
-      if (err) {
-        return res.status(500).json({ message: "Error logging out", error: err });
-      }
-      return res.status(200).json({ message: "Logout successful" });
-    });
+    try {
+            req.logout();
+    // req.logOut();
+    res.status(200).json({ message: "Logout successful" });
+        
+    } catch (error) {
+        res.status(500).json({error})
+    }
+
   });
 
 module.exports=router;
