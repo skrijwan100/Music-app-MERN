@@ -1,6 +1,8 @@
 const exprees = require("express")
 const router = exprees.Router()
 const passport = require("passport")
+const logout = require("passport")
+const session = require("express-session");
 require('dotenv').config();
 
 router.get("/login/falid",(req,res)=>{
@@ -28,15 +30,20 @@ router.get("/google/callback", passport.authenticate('google', {
 router.get("/google",passport.authenticate("google",['profile',"email"]))
 
 router.get("/logout", (req, res) => {
-    try {
-            req.logout();
-    // req.logOut();
-    res.status(200).json({ message: "Logout successful" });
-        
-    } catch (error) {
-        res.status(500).json({error})
-    }
-
+    req.logout((err) => {
+      if (err) {
+        console.error("Logout Error:", err);
+        return res.status(500).json({ message: "Error logging out", error: err });
+      }
+      req.session.destroy((sessionErr) => {
+        if (sessionErr) {
+          console.error("Session Destruction Error:", sessionErr);
+          return res.status(500).json({ message: "Error clearing session", error: sessionErr });
+        }
+        res.clearCookie("connect.sid"); // Clear the session cookie
+        res.status(200).json({ message: "Logout successful" });
+      });
+    });
   });
 
 module.exports=router;
