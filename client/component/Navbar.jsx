@@ -22,6 +22,7 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
   showmodal(data.
     message.name,data.
     message.email)
+  
  }
  const getgoogleuser=async()=>{
     const url=`${import.meta.env.VITE_URL_BACKEND}/auth/login/sucesss`
@@ -34,19 +35,21 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
     })
     const data= await reponce.json()
     console.log(data)
+    const isAuthenticated = Cookies.get('auth-token');
+    if(isAuthenticated){
+      setauth(true)
+    }
     if(data.message!="Unauthorized"){
 
       setauth(true)
     }
- }
- useEffect(()=>{
-  getgoogleuser()
-  const isAuthenticated = Cookies.get('auth-token');
-  if(isAuthenticated){
-    setauth(true)
   }
-},[showAlert])
- 
+
+ useEffect(()=>{
+  
+  getgoogleuser()
+},[auth])
+
   // console.log(isAuthenticated)
   const handlelogout= async()=>{
     const url = `${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/logout`;
@@ -72,12 +75,6 @@ export default function Navbar({ startLoader ,showAlert,showmodal}) {
   }
 
   }
-  // useEffect(()=>{
-
-  //   const url=`${import.meta.env.VITE_URL_BACKEND}/nweuser/userauth/getuser`
-  //   const responce= 
-
-  // },[])
   const handclick = () => {
     startLoader()
   }

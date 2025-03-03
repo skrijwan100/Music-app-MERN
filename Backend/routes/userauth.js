@@ -79,7 +79,7 @@ router.post("/login", [
             config = {
                 httpOnly: true,
                 secure: true,
-                sameSite: "none",
+                sameSite: "None",
             };
         }
         console.log(config)
